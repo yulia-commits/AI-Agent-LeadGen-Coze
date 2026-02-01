@@ -17,3 +17,18 @@
 import re
 # Скрипт находит паттерны {intent: ...} и удаляет их из текста
 clean_text = re.sub(r'\{.*\}', '', llm_text).strip()
+```
+## Верификация работы (End-to-End Test)
+
+### 1. Тестирование диалоговой логики в Telegram
+
+**Сценарий А: Уточнение недостающих данных (обработка контекста)**
+![Telegram Context Test](telegram_context.png)
+
+**Сценарий Б: Мгновенная регистрация при полной информации**
+![Telegram Success Test](telegram_success.png)
+
+### 2. Результат в Google Sheets
+
+Данные из обоих сценариев успешно зафиксированы в итоговой таблице:
+![Google Sheets Result](sheets_result.png)
