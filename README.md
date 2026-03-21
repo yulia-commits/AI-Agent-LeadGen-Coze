@@ -23,9 +23,8 @@ import re
 clean_text = re.sub(r'\{.*\}', '', llm_text).strip()
 ```
 ## Верификация работы (End-to-End Test)
-1. Тестирование диалоговой логики в Telegram
-   
-Сценарий А: Уточнение недостающих данных
+   1. Тестирование диалоговой логики в Telegram
+   Сценарий А: Уточнение недостающих данных
 
 <figure>
 <img src="telegram_context.png" width="40%" alt="Telegram Context Test">
@@ -39,7 +38,7 @@ clean_text = re.sub(r'\{.*\}', '', llm_text).strip()
 <figcaption><i>Рис 3. Успешная обработка заявки при наличии полной информации.</i></figcaption>
 </figure>
 
-2. Результат в Google Sheets
+   2. Результат в Google Sheets
 Данные из обоих сценариев успешно зафиксированы в итоговой таблице:
 
 <figure>
