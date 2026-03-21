@@ -3,12 +3,16 @@
 Проект интеллектуального ассистента, который квалифицирует запросы пользователей и автоматически сохраняет контактные данные в CRM-систему (Google Sheets).
 
 ## Архитектура системы
-![Схема архитектуры](architecture.png)
+
+<figure>
+  <img src="architecture.png" width="60%" alt="Схема архитектуры">
+  <figcaption><i>Рис 1. Схема движения данных: Telegram -> Coze Workflow -> Google Sheets.</i></figcaption>
+</figure>
 
 ## Функционал
-- **Распознавание намерений (Intent Recognition):** Автоматическое разделение входящих запросов на консультационные и транзакционные (запись на курс).
-- **Обработка данных (Data Cleaning):** Использование Python-скрипта для очистки технических метаданных LLM перед отправкой пользователю.
-- **Интеграция:** Связка Telegram -> Coze Workflow -> Google Sheets.
+- **Распознавание намерений (Intent Recognition):** Автоматическое разделение входящих запросов на консультационные и транзакционные.
+- **Обработка данных (Data Cleaning):** Использование Python-скрипта для очистки технических метаданных LLM.
+- **Интеграция:** Бесшовная связка мессенджера с таблицами учета.
 
 ## Техническая реализация очистки данных
 Для удаления технических JSON-тегов из ответа нейросети используется Python-скрипт в блоке Code:
@@ -17,18 +21,27 @@
 import re
 # Скрипт находит паттерны {intent: ...} и удаляет их из текста
 clean_text = re.sub(r'\{.*\}', '', llm_text).strip()
-```
-## Верификация работы (End-to-End Test)
 
-### 1. Тестирование диалоговой логики в Telegram
+Верификация работы (End-to-End Test)
+1. Тестирование диалоговой логики в Telegram
+Сценарий А: Уточнение недостающих данных
 
-**Сценарий А: Уточнение недостающих данных (обработка контекста)**
-![Telegram Context Test](telegram_context.png)
+<figure>
+<img src="telegram_context.png" width="40%" alt="Telegram Context Test">
+<figcaption><i>Рис 2. Бот удерживает контекст и запрашивает телефон, если он не был указан.</i></figcaption>
+</figure>
 
-**Сценарий Б: Мгновенная регистрация при полной информации**
-![Telegram Success Test](telegram_success.png)
+Сценарий Б: Мгновенная регистрация
 
-### 2. Результат в Google Sheets
+<figure>
+<img src="telegram_success.png" width="40%" alt="Telegram Success Test">
+<figcaption><i>Рис 3. Успешная обработка заявки при наличии полной информации.</i></figcaption>
+</figure>
 
+2. Результат в Google Sheets
 Данные из обоих сценариев успешно зафиксированы в итоговой таблице:
-![Google Sheets Result](sheets_result.png)
+
+<figure>
+<img src="sheets_result.png" width="60%" alt="Google Sheets Result">
+<figcaption><i>Рис 4. Автоматическая запись лидов в CRM-таблицу.</i></figcaption>
+</figure>
